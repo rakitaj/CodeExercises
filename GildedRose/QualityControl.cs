@@ -7,31 +7,33 @@
             var tickedItem = item.Name switch
             {
                 "Aged Brie" => TickCheese(item),
-                "Backstage passes to a TAFKAL80ETC concert" => throw new NotImplementedException(),
+                "Backstage passes to a TAFKAL80ETC concert" => TickTickets(item),
                 "Sulfuras, Hand of Ragnaros" => TickLegendary(item),
                 _ => TickStandard(item)
             };
             return tickedItem;
         }
 
-        internal static Item TickStandard(Item item)
+        private static Item TickStandard(Item item)
         {
-            var tickedItem = new Item(item.Name, TickQuality(item), item.SellIn - 1);
+            var tickedQuality = TickQuality(item);
+            var tickedItem = new Item(item.Name, item.SellIn - 1, tickedQuality);
             return tickedItem;
         }
 
-        internal static Item TickLegendary(Item item)
+        private static Item TickLegendary(Item item)
         {
             return item;
         }
 
-        internal static Item TickCheese(Item item)
+        private static Item TickCheese(Item item)
         {
-            var tickedItem = new Item(item.Name, TickQuality(item, 1), item.SellIn - 1);
+            var tickedQuality = TickQuality(item, 1);
+            var tickedItem = new Item(item.Name, item.SellIn - 1, tickedQuality);
             return tickedItem;
         }
 
-        internal static Item TickTickets(Item item)
+        private static Item TickTickets(Item item)
         {
             var tickedQuality = item.SellIn switch
             {
@@ -46,7 +48,7 @@
 
         internal static int TickQuality(Item item, int change = -1)
         {
-            if (item.SellIn < 0)
+            if (item.SellIn <= 0)
             {
                 change = change * 2;
             }
