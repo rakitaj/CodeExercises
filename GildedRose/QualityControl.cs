@@ -9,8 +9,16 @@
                 "Aged Brie" => TickCheese(item),
                 "Backstage passes to a TAFKAL80ETC concert" => TickTickets(item),
                 "Sulfuras, Hand of Ragnaros" => TickLegendary(item),
+                "Conjured Mana Cake" => TickConjured(item),
                 _ => TickStandard(item)
             };
+            return tickedItem;
+        }
+
+        private static Item TickConjured(Item item)
+        {
+            var tickedQuality = TickQuality(item, -2);
+            var tickedItem = new Item(item.Name, item.SellIn - 1, tickedQuality);
             return tickedItem;
         }
 

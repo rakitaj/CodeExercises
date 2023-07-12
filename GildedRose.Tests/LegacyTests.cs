@@ -92,5 +92,23 @@ namespace GildedRose.Tests
             ticket.Quality.Should().Be(expectedQuality);
             ticket.SellIn.Should().Be(expectedSellIn);
         }
+
+        [Theory]
+        [InlineData(0, 3, 6)]
+        [InlineData(3, 0, 0)]
+        [InlineData(4, -1, 0)]
+        public void Test_Legacy_UpdateItems_ConjuredItem(int n, int expectedSellIn, int expectedQuality)
+        {
+            var program = new Program();
+            program.Items = LegacyTests.CreateItems();
+            for (var i = 0; i < n; i++)
+            {
+                program.UpdateQuality();
+            }
+
+            var ticket = program.Items.Single(item => item.Name.Equals("Conjured Mana Cake"));
+            ticket.Quality.Should().Be(expectedQuality);
+            ticket.SellIn.Should().Be(expectedSellIn);
+        }
     }
 }
