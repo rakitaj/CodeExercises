@@ -1,4 +1,6 @@
-﻿namespace GildedRose
+﻿using GildedRose.GildedRoseItem;
+
+namespace GildedRose
 {
     class Program
     {

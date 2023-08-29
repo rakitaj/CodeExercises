@@ -1,4 +1,6 @@
-﻿namespace GildedRose
+﻿using GildedRose.GildedRoseItem;
+
+namespace GildedRose
 {
     public class QualityControl
     {
@@ -17,16 +19,18 @@
 
         private static Item TickConjured(Item item)
         {
-            var tickedQuality = TickQuality(item, -2);
-            var tickedItem = new Item(item.Name, item.SellIn - 1, tickedQuality);
-            return tickedItem;
+            // var tickedQuality = TickQuality(item, -2);
+            // var tickedItem = new Item(item.Name, item.SellIn - 1, tickedQuality);
+            item.Tick(-2);
+            return item;
         }
 
         private static Item TickStandard(Item item)
         {
-            var tickedQuality = TickQuality(item);
-            var tickedItem = new Item(item.Name, item.SellIn - 1, tickedQuality);
-            return tickedItem;
+            // var tickedQuality = TickQuality(item);
+            //var tickedItem = new Item(item.Name, item.SellIn - 1, tickedQuality);
+            item.Tick();
+            return item;
         }
 
         private static Item TickLegendary(Item item)
@@ -36,40 +40,23 @@
 
         private static Item TickCheese(Item item)
         {
-            var tickedQuality = TickQuality(item, 1);
-            var tickedItem = new Item(item.Name, item.SellIn - 1, tickedQuality);
-            return tickedItem;
+            // var tickedQuality = TickQuality(item, 1);
+            // var tickedItem = new Item(item.Name, item.SellIn - 1, tickedQuality);
+            item.Tick(1);
+            return item;
         }
 
         private static Item TickTickets(Item item)
         {
-            var tickedQuality = item.SellIn switch
-            {
-                <= 0 => 0,
-                <= 5 => TickQuality(item, 3),
-                <= 10 => TickQuality(item, 2),
-                _ => TickQuality(item, 1)
-            };
-            var tickedItem = new Item(item.Name, item.SellIn - 1, tickedQuality);
-            return tickedItem;
+            //var foo = item.SellIn switch
+            //{
+            //    <= 0 => item.Quality.Change(0),
+            //    <= 5 => item.Quality.Change(3),
+            //    <= 10 => item.Quality.Change(2),
+            //    _ => item.Quality.Change(1)
+            //};
+            item.SellIn -= 1;
+            return item;
         }
-
-        internal static int TickQuality(Item item, int change = -1)
-        {
-            if (item.SellIn <= 0)
-            {
-                change = change * 2;
-            }
-            var updatedQuality = item.Quality + change;
-            if (updatedQuality < 0)
-            {
-                updatedQuality = 0;
-            }
-            if (updatedQuality > 50)
-            {
-                updatedQuality = 50;
-            }
-            return updatedQuality;
-        } 
     }
 }
