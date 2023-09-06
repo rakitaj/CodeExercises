@@ -1,10 +1,5 @@
 ﻿using DailyProgrammer.LeetCode.StringQuestions;
 using FluentAssertions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DailyProgrammer.Tests.Leetcode
 {
@@ -87,6 +82,19 @@ namespace DailyProgrammer.Tests.Leetcode
         {
             var solution = new FindStrSolution();
             var actual = solution.StrStr(haystack, needle);
+            actual.Should().Be(expected);
+        }
+
+        [Theory]
+        [InlineData(new string[] { "flower", "flow", "flight" }, "fl")]
+        [InlineData(new string[] { "dog", "racecar", "car" }, "")]
+        [InlineData(new string[] { }, "")]
+        [InlineData(new string[] { "" }, "")]
+        [InlineData(new string[] { "xqzed" }, "xqzed")]
+        public void Test_LongestCommonPrefix(string[] strings, string expected)
+        {
+            var solution = new LongestCommonPrefixSolution();
+            var actual = solution.LongestCommonPrefix(strings);
             actual.Should().Be(expected);
         }
     }

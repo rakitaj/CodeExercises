@@ -10,10 +10,10 @@ namespace DailyProgrammer.LeetCode.StringQuestions
     {
         public int StrStr(string haystack, string needle)
         {
-            var j = 0;
-            for(int i = 0; i < haystack.Length - needle.Length; i++)
+            for(int i = 0; i <= haystack.Length - needle.Length; i++)
             {
                 var ii = i;
+                var j = 0;
                 while (haystack[ii] == needle[j])
                 {
                     if (j == needle.Length - 1)
@@ -23,7 +23,6 @@ namespace DailyProgrammer.LeetCode.StringQuestions
                     ii += 1;
                     j += 1;
                 }
-                j = 0;
             }
             return -1;
         }
